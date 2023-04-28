@@ -1,7 +1,6 @@
 package com.example;
 
 import com.example.database.pool.ConnectionPool;
-import com.example.database.repository.CompanyRepository;
 import com.example.database.repository.CrudRepository;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
