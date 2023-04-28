@@ -1,5 +1,6 @@
 package com.example.database.repository;
 
+import com.example.beanpostprocesssor.Auditing;
 import com.example.beanpostprocesssor.InjectBean;
 import com.example.beanpostprocesssor.Transaction;
 import com.example.database.entity.Company;
@@ -8,6 +9,7 @@ import jakarta.annotation.PostConstruct;
 
 import java.util.Optional;
 @Transaction
+@Auditing
 public class CompanyRepository implements CrudRepository<Integer, Company> {
     @InjectBean
     private  ConnectionPool connectionPool;
