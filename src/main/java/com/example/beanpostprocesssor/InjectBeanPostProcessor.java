@@ -20,7 +20,7 @@ public class InjectBeanPostProcessor implements BeanPostProcessor, ApplicationCo
                     ReflectionUtils.makeAccessible(field); // bean can be private
                     ReflectionUtils.setField(field,bean,beanToInject);
                 });
-        return BeanPostProcessor.super.postProcessBeforeInitialization(bean, beanName);
+        return bean;
     }
 
     @Override
