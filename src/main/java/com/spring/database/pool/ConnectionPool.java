@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component("pool1")
 @RequiredArgsConstructor
 public class ConnectionPool  {
-    @Value("postgres")
+    @Value("${db.username}")
     private final String username;
-    @Value("12")
+    @Value("${db.pool.size}")
     private final Integer poolSize;
 
     @PostConstruct

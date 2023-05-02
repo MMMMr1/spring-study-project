@@ -10,18 +10,9 @@ import org.springframework.stereotype.Component;
 
 @Configuration
 public class ApplicationConfiguration {
-    @Bean("pool2")
-    public ConnectionPool pool2(@Value("${db.username}") String name){
-        return new ConnectionPool(name, 20);
-    }
-//    @Bean
-//    public ConnectionPool pool3( ){
-//        return new ConnectionPool("test-pool", 20);
-//    }
     @Bean
     public UserRepository userRepository2(ConnectionPool pool2){
         return new UserRepository(pool2);
     }
-
 
 }
