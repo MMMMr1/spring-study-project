@@ -1,4 +1,4 @@
-package com.spring.condition;
+package com.spring.config.condition;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
