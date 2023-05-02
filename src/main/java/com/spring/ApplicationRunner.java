@@ -10,5 +10,6 @@ public class ApplicationRunner {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(ApplicationRunner.class, args);
 		System.out.println("Count  " + context.getBeanDefinitionCount());
+		System.out.println(context.getBean("pool1"));
 	}
 }
