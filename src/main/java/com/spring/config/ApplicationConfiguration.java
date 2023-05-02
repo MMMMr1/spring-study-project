@@ -1,28 +1,16 @@
 package com.spring.config;
 
 import com.spring.database.pool.ConnectionPool;
-import com.spring.database.repository.CrudRepository;
 import com.spring.database.repository.UserRepository;
 import com.web.config.WebConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.stereotype.Component;
 //@ImportResource("classpath:application.xml")
-@Import(WebConfiguration.class)
+
 @Configuration
-@PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "com.spring",
-                useDefaultFilters = false,
-                includeFilters = {
-                    @ComponentScan.Filter(type = FilterType.ANNOTATION, value = Component.class),
-                        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),
-                        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com\\..+Repository")
-                }
-)
 public class ApplicationConfiguration {
     @Bean("pool2")
-    @Profile("!prod")
-//    ! & |
     public ConnectionPool pool2(@Value("${db.username}") String name){
         return new ConnectionPool(name, 20);
     }
