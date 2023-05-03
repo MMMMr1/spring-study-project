@@ -3,7 +3,9 @@ package com.spring;
 import com.spring.config.DataBaseProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
@@ -16,5 +18,6 @@ public class ApplicationRunner {
 		System.out.println(context.getBean("pool1"));
 		System.out.println(context.getBean("userRepository"));
 		System.out.println(context.getBean(DataBaseProperties.class));
+  
 	}
 }
