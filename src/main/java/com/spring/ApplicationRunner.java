@@ -3,9 +3,7 @@ package com.spring;
 import com.spring.config.DataBaseProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
