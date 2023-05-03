@@ -1,12 +1,9 @@
-package com.spring.demo;
+package com.spring.service;
 
 import com.spring.database.entity.Company;
 import com.spring.database.repository.CrudRepository;
 import com.spring.dto.CompanyReadDto;
 import com.spring.listener.entity.EntityEvent;
-import com.spring.service.CompanyService;
-import com.spring.service.UserService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

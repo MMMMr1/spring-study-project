@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @RequiredArgsConstructor
 public class UserRepository {
-    @Qualifier("pool2")
+
     private final ConnectionPool connectionPool;
 
 }
