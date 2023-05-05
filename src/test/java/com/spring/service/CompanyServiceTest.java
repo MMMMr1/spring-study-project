@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.*;
 import org.springframework.context.ApplicationEventPublisher;
 
+import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +30,7 @@ class CompanyServiceTest {
     private CompanyService companyService;
     @Test
     void findById(){
-        doReturn(Optional.of(new Company(COMPANY_ID)))
+        doReturn(Optional.of(new Company(COMPANY_ID, null , Collections.EMPTY_MAP)))
                 .when(companyCrudRepository).findById(COMPANY_ID);
         var actualResult = companyService.findById(COMPANY_ID);
         assertTrue(actualResult.isPresent());
