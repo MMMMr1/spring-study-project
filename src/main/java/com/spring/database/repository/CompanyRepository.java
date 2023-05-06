@@ -1,43 +1,15 @@
 package com.spring.database.repository;
 
-import com.spring.beanpostprocesssor.Auditing;
-import com.spring.beanpostprocesssor.Transaction;
 import com.spring.database.entity.Company;
-import com.spring.database.pool.ConnectionPool;
-import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-@Slf4j
-@Repository
-@Scope(BeanDefinition.SCOPE_PROTOTYPE)
-@Transaction
-@Auditing
-@RequiredArgsConstructor
-public class CompanyRepository implements CrudRepository<Integer, Company> {
-    private final ConnectionPool pool;
-    private final List<ConnectionPool> pools;
-    @Value("${db.pool.size}")
-    private final Integer poolSize;
-    @PostConstruct
-    private void init(){
-        System.out.println("init company repository");
-    }
-    @Override
-    public Optional<Company> findById(Integer id) {
-        log.info("findById method ...");
-        return Optional.of(new Company(id, null, Collections.EMPTY_MAP));
-    }
-    @Override
-    public void delete(Company entity) {
-        log.info("delete method ...");
-    }
+
+public interface CompanyRepository extends JpaRepository<Company, Integer> {
+//    Optional, Entity, Future
+      Optional<Company> findByName(String name);
+
+//      Collection, Stream(batch, close)
+      List<Company> findByNameContainingIgnoreCase(String fragment);
 }
