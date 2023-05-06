@@ -11,7 +11,7 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@Builder
+@Builder
 @Entity
 @Table(name = "company")
 public class Company implements BaseEntity<Integer> {
