@@ -3,6 +3,7 @@ package com.spring.integration.database.repository;
 import com.spring.database.entity.Role;
 import com.spring.database.entity.User;
 import com.spring.database.repository.UserRepository;
+import com.spring.dto.PersonalInfo;
 import com.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @RequiredArgsConstructor
 class UserRepositoryTest {
     private final UserRepository userRepository;
+    @Test
+    void checkProjections(){
+        var users = userRepository.findAllByCompanyId(1);
+        assertThat(users).hasSize(2);
+    }
     @Test
     void checkUpdate(){
         User ivan = userRepository.getById(1L);

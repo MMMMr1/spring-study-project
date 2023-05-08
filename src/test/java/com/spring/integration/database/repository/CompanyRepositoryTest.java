@@ -63,4 +63,6 @@ class CompanyRepositoryTest {
         entityManager.persist(company);
         assertNotNull(company.getId());
     }
+
+
 }

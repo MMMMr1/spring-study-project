@@ -2,6 +2,8 @@ package com.spring.database.repository;
 
 import com.spring.database.entity.Role;
 import com.spring.database.entity.User;
+import com.spring.dto.PersonalInfo;
+import com.spring.dto.PersonalInfo2;
 import jakarta.persistence.LockModeType;
 import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
@@ -39,4 +41,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value = "select u from User u",
            countQuery = "select count(distinct u.firstname) from User u")
     Page <User> findAllBy(Pageable pageable);
+//   <T> List<T> findAllByCompanyId(Integer companyId, Class<T> tClass);
+   @Query(value = "SELECT firstname,"+
+           " lastname, "+
+           "birth_date birthDate "+
+           "FROM users "+
+           "WHERE company_id = :companyId",
+   nativeQuery = true)
+    List<PersonalInfo2> findAllByCompanyId(Integer companyId );
 }
