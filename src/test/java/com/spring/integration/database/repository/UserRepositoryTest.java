@@ -3,14 +3,11 @@ package com.spring.integration.database.repository;
 import com.spring.database.entity.Role;
 import com.spring.database.entity.User;
 import com.spring.database.repository.UserRepository;
-import com.spring.dto.PersonalInfo;
 import com.spring.dto.UserFilter;
 import com.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
@@ -24,6 +21,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @RequiredArgsConstructor
 class UserRepositoryTest {
     private final UserRepository userRepository;
+    @Test
+    void checkAuditing(){
+        var user = userRepository.findById(1L).get();
+        user.setBirthDate(user.getBirthDate().plusYears(1L));
+        userRepository.flush();
+        System.out.println();
+    }
     @Test
     void checkCustomImplementation(){
         UserFilter filter = new UserFilter(
