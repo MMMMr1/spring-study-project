@@ -29,7 +29,6 @@ public class FilterUserRepositoryImpl implements FilterUserRepository{
     private final JdbcTemplate jdbcTemplate;
     private final EntityManager entityManager;
 
-
     @Override
     public List<User> findAllByFilter(UserFilter filter) {
         var predicate = QPredicates.builder()
