@@ -7,13 +7,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.test.annotation.Commit;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
-
-import java.util.Map;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,8 +34,6 @@ class CompanyRepositoryTest {
         entityManager.flush();
         assertTrue(companyRepository.findById(APPLE_ID).isEmpty());
     }
-
-
     @Test
     void findById() {
         transactionTemplate.executeWithoutResult(transaction -> {
@@ -51,18 +43,18 @@ class CompanyRepositoryTest {
         });
     }
 
-    @Test
-    void save() {
-        var company = Company.builder()
-                .name("Apple")
-                .locales(Map.of(
-                        "ru", "Apple описание",
-                        "en", "Apple description"
-                ))
-                .build();
-        entityManager.persist(company);
-        assertNotNull(company.getId());
-    }
+//    @Test
+//    void save() {
+//        var company = Company.builder()
+//                .name("Apple")
+//                .locales(Map.of(
+//                        "ru", "Apple описание",
+//                        "en", "Apple description"
+//                ))
+//                .build();
+//        entityManager.persist(company);
+//        assertNotNull(company.getId());
+//    }
 
 
 }

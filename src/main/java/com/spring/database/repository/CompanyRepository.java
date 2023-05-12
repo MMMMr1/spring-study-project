@@ -1,7 +1,6 @@
 package com.spring.database.repository;
 
 import com.spring.database.entity.Company;
-import com.spring.dto.PersonalInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

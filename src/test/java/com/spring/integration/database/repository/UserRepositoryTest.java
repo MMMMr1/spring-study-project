@@ -7,13 +7,16 @@ import com.spring.dto.UserFilter;
 import com.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import static com.spring.database.entity.QUser.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,10 +34,17 @@ class UserRepositoryTest {
     @Test
     void checkCustomImplementation(){
         UserFilter filter = new UserFilter(
-                null, "%ov%", LocalDate.now()
+                null, "ov", LocalDate.now()
         );
         var users = userRepository.findAllByFilter(filter);
-        System.out.println();
+        assertThat(users).hasSize(4);
+    }
+    @Test
+    void testQuerydslPredicates(){
+        var predicate = user.firstname.containsIgnoreCase("ivaN")
+                .and(user.birthDate.before(LocalDate.now()));
+        Page<User> allValues = userRepository.findAll(predicate, Pageable.unpaged());
+        assertThat(allValues.getContent()).hasSize(1);
     }
     @Test
     void checkProjections(){
@@ -50,7 +60,6 @@ class UserRepositoryTest {
         int resultCount = userRepository.updateRole(Role.USER, 1L, 5L);
         assertEquals(2, resultCount);
 //        ivan.getCompany().getName();   // LazyInitializationException - no Session
-
         User theSameIvan = userRepository.getById(1L);
         assertSame(Role.USER, theSameIvan.getRole());
     }
@@ -74,7 +83,6 @@ class UserRepositoryTest {
              slice = userRepository.findAllBy(slice.nextPageable());
              slice.forEach(user -> System.out.println(user.getCompany().getName()));
         }
-
     }
     @Test
     void checkSort(){
