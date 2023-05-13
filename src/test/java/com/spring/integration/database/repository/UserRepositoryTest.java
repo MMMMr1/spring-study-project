@@ -3,7 +3,6 @@ package com.spring.integration.database.repository;
 import com.spring.database.entity.Role;
 import com.spring.database.entity.User;
 import com.spring.database.repository.UserRepository;
-import com.spring.dto.PersonalInfo;
 import com.spring.dto.UserFilter;
 import com.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,6 +22,9 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @IT
+@Sql({
+        "classpath:sql/data.sql"
+})
 @RequiredArgsConstructor
 class UserRepositoryTest {
     private final UserRepository userRepository;
@@ -35,7 +38,6 @@ class UserRepositoryTest {
     void checkJdbcTemplate(){
         var allByCompanyIdAndRole = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
         assertThat(allByCompanyIdAndRole).hasSize(1);
-        System.out.println();
     }
 
     @Test
