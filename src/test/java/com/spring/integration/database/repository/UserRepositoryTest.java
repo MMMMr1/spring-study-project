@@ -4,6 +4,7 @@ import com.spring.database.entity.Role;
 import com.spring.database.entity.User;
 import com.spring.database.repository.UserRepository;
 import com.spring.dto.UserFilter;
+import com.spring.integration.IntegrationTestBase;
 import com.spring.integration.annotation.IT;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -21,12 +22,9 @@ import static com.spring.database.entity.QUser.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@IT
-@Sql({
-        "classpath:sql/data.sql"
-})
+
 @RequiredArgsConstructor
-class UserRepositoryTest {
+class UserRepositoryTest extends IntegrationTestBase {
     private final UserRepository userRepository;
     @Test
     void checkBatch(){

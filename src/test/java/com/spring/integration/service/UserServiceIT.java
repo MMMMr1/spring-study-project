@@ -4,6 +4,7 @@ import com.spring.database.pool.ConnectionPool;
 import com.spring.integration.annotation.IT;
 import com.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @IT
@@ -14,14 +15,14 @@ public class UserServiceIT {
     private final ConnectionPool pool;
     @Test
     void  test1(){
-        System.out.println("test1");
+//        System.out.println("test1");
     }
     @Test
     void  test2(){
-        System.out.println("test2");
+//        System.out.println("test2");
     }
     @Test
     void  test3(){
-        System.out.println("test3");
+//        System.out.println("test3");
     }
 }
