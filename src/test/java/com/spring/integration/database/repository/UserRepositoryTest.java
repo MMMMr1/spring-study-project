@@ -26,6 +26,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserRepositoryTest {
     private final UserRepository userRepository;
     @Test
+    void checkBatch(){
+        var users = userRepository.findAll();
+        userRepository.updateCompanyAndRole(users);
+        System.out.println();
+    }
+    @Test
     void checkJdbcTemplate(){
         var allByCompanyIdAndRole = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
         assertThat(allByCompanyIdAndRole).hasSize(1);
