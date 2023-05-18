@@ -12,7 +12,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
         "classpath:sql/data.sql"
 })
 public abstract class IntegrationTestBase {
-    private static final PostgreSQLContainer<?> container = new PostgreSQLContainer<>();
+    private static final PostgreSQLContainer<?> container = new PostgreSQLContainer<>()
+//            .withDatabaseName("app")
+            ;
     @BeforeAll
     static void runContainer(){
         container.start();
