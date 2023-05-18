@@ -1,6 +1,5 @@
 package com.spring.http.controller;
 
-import com.spring.database.repository.CompanyRepository;
 import com.spring.dto.UserReadDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/api/v1")
+@SessionAttributes({"user"})
 public class GreetingController {
     @GetMapping("/hello")
     public String hello(Model model,
@@ -34,7 +34,8 @@ public class GreetingController {
     }
 
     @GetMapping("/bye")
-    public String bye( ){
+    public String bye(@SessionAttribute("user") UserReadDto user){
+        ModelAndView modelAndView = new ModelAndView();
         return "greeting/bye";
     }
 }
