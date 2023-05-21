@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RequiredArgsConstructor
-//@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 public class CompanyServiceIT extends IntegrationTestBase {
     private static final Integer COMPANY_ID = 1;
     private final CompanyService companyService;
@@ -22,7 +21,7 @@ public class CompanyServiceIT extends IntegrationTestBase {
     void findById(){
         var actualResult = companyService.findById(COMPANY_ID);
         assertTrue(actualResult.isPresent());
-        CompanyReadDto expectedResult = new CompanyReadDto(COMPANY_ID);
+        CompanyReadDto expectedResult = new CompanyReadDto(COMPANY_ID, "djjdj");
         actualResult.ifPresent(actual -> assertEquals(expectedResult,actual));
     }
 }

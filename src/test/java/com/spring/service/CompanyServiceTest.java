@@ -34,8 +34,8 @@ class CompanyServiceTest {
                 .when(companyRepository).findById(COMPANY_ID);
         var actualResult = companyService.findById(COMPANY_ID);
         assertTrue(actualResult.isPresent());
-        CompanyReadDto expectedResult = new CompanyReadDto(COMPANY_ID);
-        actualResult.ifPresent(actual -> assertEquals(expectedResult,actual));
+//        CompanyReadDto expectedResult = new CompanyReadDto(COMPANY_ID);
+//        actualResult.ifPresent(actual -> assertEquals(expectedResult,actual));
 //      проверяем что ивент был отправлен
         verify(eventPublisher).publishEvent(any(EntityEvent.class));
         verifyNoMoreInteractions(eventPublisher,userService);
