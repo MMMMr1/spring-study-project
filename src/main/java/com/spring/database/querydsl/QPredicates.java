@@ -12,19 +12,19 @@ import java.util.function.Function;
 //помогает создавать динамические запросы
 public class QPredicates {
     private final List<Predicate> predicates = new ArrayList<>();
-    public static QPredicates builder(){
+    public static QPredicates builder() {
         return new QPredicates();
     }
-    public <T> QPredicates add(T object, Function<T, Predicate> function){
-        if (object != null){
+    public <T> QPredicates add(T object, Function<T, Predicate> function) {
+        if (object != null) {
             predicates.add(function.apply(object));
         }
         return this;
     }
-    public Predicate build(){
+    public Predicate build() {
         return ExpressionUtils.allOf(predicates);
     }
-    public Predicate buildOr(){
+    public Predicate buildOr() {
         return ExpressionUtils.anyOf(predicates);
     }
 }

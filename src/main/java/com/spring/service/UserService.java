@@ -1,8 +1,8 @@
 package com.spring.service;
 
-import com.spring.beanpostprocesssor.Transaction;
 import com.spring.database.repository.UserRepository;
 import com.spring.dto.UserCreateEditDto;
+import com.spring.dto.UserFilter;
 import com.spring.dto.UserReadDto;
 import com.spring.mapper.UserCreateEditMapper;
 import com.spring.mapper.UserReadMapper;
@@ -21,6 +21,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
     private final UserCreateEditMapper userCreateEditMapper;
+    public List<UserReadDto> findAll(UserFilter filter){
+        return userRepository.findAllByFilter(filter).stream()
+                .map(userReadMapper::map)
+                .toList();
+    }
     public List<UserReadDto> findAll(){
         return userRepository.findAll().stream()
                 .map(userReadMapper::map)

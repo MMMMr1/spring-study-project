@@ -1,6 +1,9 @@
 package com.spring.http.controller;
 
+import com.spring.database.entity.Role;
 import com.spring.dto.UserCreateEditDto;
+import com.spring.dto.UserFilter;
+import com.spring.service.CompanyService;
 import com.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,16 +11,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final CompanyService companyService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("users", userService.findAll());
+    public String findAll(Model model, UserFilter filter) {
+        model.addAttribute("users", userService.findAll(filter));
         return "user/users";
     }
 
@@ -26,16 +31,29 @@ public class UserController {
                            Model model) {
         return userService.findById(id)
                 .map(user -> {
-                    model.addAttribute("users", user);
-                    return "user/users";
+                    model.addAttribute("user", user);
+                    model.addAttribute("roles", Role.values());
+                    model.addAttribute("companies", companyService.findAll());
+                    return "user/user";
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+    }
+    @GetMapping("/registration")
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto user){
+        model.addAttribute("user", user);
+        model.addAttribute("roles", Role.values());
+        model.addAttribute("companies", companyService.findAll());
+        return "user/registration";
     }
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute UserCreateEditDto user) {
+    public String create(@ModelAttribute UserCreateEditDto user,
+                         RedirectAttributes redirectAttributes) {
+//        if(true){
+//            redirectAttributes.addFlashAttribute("user", user);
+//            return "redirect:/users/registration";
+//        }
         return "redirect:/users/" + userService.create(user).getId();
     }
 
