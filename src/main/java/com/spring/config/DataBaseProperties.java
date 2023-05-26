@@ -1,10 +1,13 @@
 package com.spring.config;
 
+import jakarta.validation.constraints.Email;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.validation.annotation.Validated;
+
 import java.util.List;
 import java.util.Map;
-
+@Validated
 @ConfigurationProperties(prefix = "db")
 public record DataBaseProperties(
         String username,
