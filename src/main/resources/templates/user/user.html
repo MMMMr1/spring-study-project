@@ -12,10 +12,10 @@
     <label for="birthDate">BirthDate:
         <input id="birthDate" type="text" name="birthDate" th:value="*{birthDate}">
     </label><br>
-    <label for="lastname">BirthDate:
+    <label for="lastname">Lastname:
         <input id="lastname" type="text" name="lastname" th:value="*{lastname}">
     </label><br>
-    <label for="firstname">BirthDate:
+    <label for="firstname">Firstname:
         <input id="firstname" type="text" name="firstname" th:value="*{firstname}">
     </label><br>
     <div th:each="role : ${roles}">
@@ -36,6 +36,8 @@
     </div>
     <button type="submit">Update</button>
 </form>
-
+<div th:if="${errors}">
+    <p style="color: red" th:each="error : ${errors}" th:text="${error.defaultMessage}">Error</p>
+</div>
 </body>
 </html>

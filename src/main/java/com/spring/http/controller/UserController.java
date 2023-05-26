@@ -7,6 +7,9 @@ import com.spring.dto.UserFilter;
 import com.spring.dto.UserReadDto;
 import com.spring.service.CompanyService;
 import com.spring.service.UserService;
+import com.spring.validation.group.CreateAction;
+import com.spring.validation.group.UpdateAction;
+import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,7 +61,7 @@ public class UserController {
 
     @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-    public String create(@ModelAttribute @Validated UserCreateEditDto user,
+    public String create(@ModelAttribute @Validated({Default.class, CreateAction.class}) UserCreateEditDto user,
                          BindingResult bindingResult,// it will save exceptions
                          RedirectAttributes redirectAttributes) {
         if(bindingResult.hasErrors()){
@@ -72,7 +75,7 @@ public class UserController {
     //    @PutMapping("/{id}")
     @PostMapping("/{id}/update")
     public String update(@PathVariable("id") Long id,
-                         @ModelAttribute @Validated UserCreateEditDto user) {
+                         @ModelAttribute @Validated ({Default.class, UpdateAction.class}) UserCreateEditDto user) {
         return userService.update(id, user)
                 .map(f -> "redirect:/users/{id}")
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
