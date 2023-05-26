@@ -30,12 +30,12 @@ logging:
     name: logger.log
     path: /
 spring:
-#  mvc:
+  mvc:
 #    view:
 #      prefix: /WEB-INF/jsp/
 #      suffix: .jsp
-#    format:
-#      date: iso
+    format:
+      date: iso
   datasource:
     url: jdbc:postgresql://localhost:5433/postgres
     username: postgres

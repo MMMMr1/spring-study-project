@@ -1,5 +1,7 @@
 package com.spring.service;
 
+import com.spring.database.entity.User;
+import com.spring.database.querydsl.QPredicates;
 import com.spring.database.repository.UserRepository;
 import com.spring.dto.UserCreateEditDto;
 import com.spring.dto.UserFilter;
@@ -7,12 +9,16 @@ import com.spring.dto.UserReadDto;
 import com.spring.mapper.UserCreateEditMapper;
 import com.spring.mapper.UserReadMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.spring.database.entity.QUser.user;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +27,15 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
     private final UserCreateEditMapper userCreateEditMapper;
-    public List<UserReadDto> findAll(UserFilter filter){
-        return userRepository.findAllByFilter(filter).stream()
-                .map(userReadMapper::map)
-                .toList();
+    public Page<UserReadDto> findAll(UserFilter filter, Pageable pageable){
+        var predicate = QPredicates.builder()
+                .add(filter.firstname(), user.firstname::containsIgnoreCase)
+                .add(filter.lastname(), user.lastname::containsIgnoreCase)
+                .add(filter.birthDate(), user.birthDate::before)
+                .build();
+        return   userRepository.findAll(predicate, pageable)
+                .map(userReadMapper::map);
+
     }
     public List<UserReadDto> findAll(){
         return userRepository.findAll().stream()
