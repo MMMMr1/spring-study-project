@@ -30,6 +30,7 @@ public class User extends AuditingEntity<Long>{
     private LocalDate birthDate;
     private String firstname;
     private String lastname;
+    private String image;
     @Enumerated(EnumType.STRING)
     private Role role;
     @ManyToOne(fetch = FetchType.LAZY)

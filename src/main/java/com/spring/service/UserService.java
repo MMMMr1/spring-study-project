@@ -9,10 +9,12 @@ import com.spring.dto.UserReadDto;
 import com.spring.mapper.UserCreateEditMapper;
 import com.spring.mapper.UserReadMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +29,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserReadMapper userReadMapper;
     private final UserCreateEditMapper userCreateEditMapper;
+    private final ImageService imageService;
     public Page<UserReadDto> findAll(UserFilter filter, Pageable pageable){
         var predicate = QPredicates.builder()
                 .add(filter.firstname(), user.firstname::containsIgnoreCase)
@@ -49,7 +52,10 @@ public class UserService {
     @Transactional
     public UserReadDto create(UserCreateEditDto userDto){
         return Optional.of(userDto)
-                .map(userCreateEditMapper::map)
+                .map(dto -> {
+                    uploadImage(dto.getImage());
+                       return userCreateEditMapper.map(dto);
+                })
                 .map(userRepository::save)
                 .map(userReadMapper::map)
                 .orElseThrow();
@@ -57,10 +63,21 @@ public class UserService {
     @Transactional
     public Optional<UserReadDto> update(Long id, UserCreateEditDto userDto){
         return userRepository.findById(id)
-                .map(entity -> userCreateEditMapper.map(userDto,entity))
+                .map(entity -> {
+                    uploadImage(userDto.getImage());
+                    return userCreateEditMapper.map(userDto,entity);
+                })
                 .map(userRepository::saveAndFlush)
                 .map(userReadMapper::map);
     }
+    @SneakyThrows
+    private void uploadImage(MultipartFile image) {
+        if(!image.isEmpty()){
+            imageService.upload(image.getOriginalFilename(), image.getInputStream());
+        }
+
+    }
+
     @Transactional
     public boolean delete(Long id){
         return userRepository.findById(id)

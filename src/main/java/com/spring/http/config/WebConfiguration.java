@@ -1,4 +1,4 @@
-package com.web.config;
+package com.spring.http.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
