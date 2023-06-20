@@ -15,6 +15,10 @@ public class SecurityConfiguration {
         http.csrf().disable();
         http.authorizeHttpRequests().anyRequest().authenticated();
 //        http.httpBasic(Customizer.withDefaults());
+        http.logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .deleteCookies("JSESSIONID"));
         http.formLogin(login ->
                 login
                         .loginPage("/login")
