@@ -43,5 +43,10 @@
     </div>
     <button type="submit">Update</button>
 </form>
+<form th:action="@{/users/{userId}/delete(userId=${user.id})}" enctype="multipart/form-data" method="post" th:object="${user}">
+     <button type="submit">
+        remove
+    </button>
+</form>
 </body>
 </html>
