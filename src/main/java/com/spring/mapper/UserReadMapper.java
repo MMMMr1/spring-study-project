@@ -23,6 +23,7 @@ public class UserReadMapper implements Mapper<User, UserReadDto> {
                 object.getBirthDate(),
                 object.getFirstname(),
                 object.getLastname(),
+                object.getImage(),
                 object.getRole(),
                 company
         );
