@@ -1,5 +1,6 @@
 # spring study project
 Technologies:
+
 -Java 17,
 
 -Spring Boot (web, validation, security), 
